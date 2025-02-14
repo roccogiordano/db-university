@@ -1,0 +1,43 @@
+SELECT *
+FROM bept4_university.students
+WHERE YEAR(`date_of_birth`) = 1990;
+
+SELECT *
+FROM bept4_university.courses
+WHERE `cfu` > 10;
+
+SELECT *
+FROM bept4_university.students
+WHERE datediff(current_date(), `date_of_birth`) >= 10958;
+
+SELECT *
+FROM bept4_university.courses
+WHERE `period` LIKE "I semestre"
+AND `year` = 1;
+
+SELECT *
+FROM bept4_university.exams
+WHERE `date` = "2020-06-20"
+AND `hour` >= "14:00:00";
+
+SELECT *
+FROM bept4_university.degrees
+WHERE `level` LIKE “magistrale";
+
+SELECT COUNT(*)
+FROM bept4_university.departments;
+
+SELECT COUNT(*)
+FROM bept4_university.teachers
+WHERE `phone` IS NOT NULL;
+
+INSERT INTO bept4_university.students (``degree_id`, `name`, `surname`, `date_of_birth`, `fiscal_code`, `enrolment_date`, `registration_number`, `email`)
+VALUES (Rand()*60, "Rocco", "Giordano", "2005-08-11", "RSSMRA05M11H501Z", "2021-03-09", 625033, “mario.rossi123@gmail.com”);
+
+UPDATE bept4_university.teachers
+SET `office_number` = 126
+WHERE `id` = 58;
+
+DELETE
+FROM bept4_university.students
+WHERE `id` = 5001;
