@@ -1,0 +1,62 @@
+SELECT YEAR(`enrolment_date`) AS `enrolment_year`, COUNT(*) AS `enrolled_students`
+FROM bept4_university.students
+GROUP BY YEAR(`enrolment_date`)
+ORDER BY YEAR(`enrolment_date`) ASC;
+
+SELECT `office_number`, COUNT(*) AS `number_of_teachers`
+FROM bept4_university.teachers
+GROUP BY `office_number`
+ORDER BY cast(`office_number` as SIGNED) ASC;
+
+SELECT `exam_id`, COUNT(*) AS `number_of_students`, AVG(`vote`) AS `average_grade`
+FROM bept4_university.exam_student
+GROUP BY `exam_id`
+ORDER BY `average_grade` ASC;
+
+SELECT `department_id`, COUNT(*) AS `number_of_degrees`
+FROM bept4_university.degrees
+GROUP BY `department_id`
+ORDER BY `department_id` ASC;
+
+— — — 
+
+SELECT *
+FROM bept4_university.students
+WHERE `degree_id` = 53;
+
+SELECT *
+FROM bept4_university.degrees
+WHERE `department_id` = 7;
+
+SELECT *
+FROM bept4_university.course_teacher
+WHERE `teacher_id` = 44;
+
+SELECT *
+FROM bept4_university.students
+INNER JOIN bept4_university.degrees
+ON bept4_university.students.degree_id = bept4_university.degrees.id
+INNER JOIN bept4_university.departments
+ON bept4_university.degrees.department_id = bept4_university.departments.id
+ORDER BY `surname`, bept4_university.students.name ASC;
+
+SELECT *
+FROM bept4_university.degrees
+INNER JOIN bept4_university.courses
+ON bept4_university.degrees.id = bept4_university.courses.degree_id
+INNER JOIN bept4_university.course_teacher
+ON bept4_university.courses.id = bept4_university.course_teacher.course_id
+INNER JOIN bept4_university.teachers
+ON bept4_university.course_teacher.teacher_id = bept4_university.teachers.id
+ORDER BY bept4_university.degrees.name ASC;
+
+SELECT *
+FROM bept4_university.teachers
+INNER JOIN bept4_university.course_teacher
+ON bept4_university.teachers.id = bept4_university.course_teacher.teacher_id
+INNER JOIN bept4_university.courses
+ON bept4_university.course_teacher.course_id = bept4_university.courses.id
+INNER JOIN bept4_university.degrees
+ON bept4_university.courses.degree_id = bept4_university.degrees.id
+WHERE bept4_university.degrees.department_id = 5
+ORDER BY `surname`, bept4_university.teachers.name ASC;
